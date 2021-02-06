@@ -1,7 +1,6 @@
 # cluebot.py
 import os
 import discord
-import asyncio
 
 from dotenv import load_dotenv
 
@@ -14,5 +13,5 @@ client = discord.Client()
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
-client.run(Token, bot=true)
+client.run(Token)
 
