@@ -2,7 +2,6 @@
 import os
 import discord
 import asyncio
-import nest_asyncio
 
 from dotenv import load_dotenv
 
