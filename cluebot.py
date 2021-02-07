@@ -64,6 +64,13 @@ async def setRsn(ctx, *args):
         usernameDesired = usernameDesired + "_" + arg
     print(usernameDesired+" is the desired username!")
     print(ctx.author.display_name)
+    embed = discord.Embed(title="Set Username for " + ctx.author.display_name, url=clueStatsLookup.urlwithusername, description="You have assigned" + usernameDesired + " to your profile!" , color=discord.Color.blue())
+    embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
+    embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+    embed.set_footer(text = time_string)
+    await ctx.send(embed=embed)
     
 
 @bot.command(name='clues', help='Responds with Clue Stats')
@@ -75,7 +82,7 @@ async def clueCheck(ctx, *args):
     clueStatsLookup(usernameForLookup)
     print("Stats looked up!")
     #embed response into a message block that looks professional
-    embed = discord.Embed(title="Clue stats for " + ctx.author.display_name, url=clueStatsLookup.urlwithusername, description="You are a clue master!", color=discord.Color.blue())
+    embed = discord.Embed(title="Clue stats for " + ctx.author.display_name, url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
     named_tuple = time.localtime() # get struct_time
@@ -91,7 +98,7 @@ async def clueCheck(ctx, *args):
     pointTotal = int(pointTotal)
     embed.add_field(name="Total Clue Points", value="Total Clue Points: "+ str(pointTotal))
     embed.add_field(name="Total Clues Completed",value="Total Clues: " + str(clueStatsLookup.totalClues))
-    
+       
     
     
     
