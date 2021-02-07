@@ -1,5 +1,8 @@
 # cluebot.py
 import os
+import time
+import csv
+import math
 import discord
 import pandas as panda
 from discord.ext import commands
@@ -14,10 +17,11 @@ def clueStatsLookup(name):
     username = str(name)
     clueStatsLookup.urlwithusername = beginnerUrl + username
     column_names = ["Rank", "Clues", "XP"]
-    print(beginnerUrl)
+    print(clueStatsLookup.urlwithusername+ " will be the URL for this request!")
     url = clueStatsLookup.urlwithusername
     stats = panda.read_csv(url, names=column_names)
     print(stats)
+    print("Stats found for "+username)
     Ranks = stats.Rank.to_list() 
     Clues = stats.Clues.to_list()
     clueStatsLookup.easyClueCount = Clues[54]
@@ -33,42 +37,10 @@ def clueStatsLookup(name):
     clueStatsLookup.eliteRank = Ranks[57]
     clueStatsLookup.masterRank = Ranks[58]
     clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
-    print("Successful function")
+    print("Successful function for "+ username)
 
 #client = discord.Client()
 bot = commands.Bot(command_prefix='=')
-
-######Original Function to Find Clue Stats based on username
-#beginnerUrl = 'http://secure.runescape.com/m=hiscore/index_lite.ws?player='
-#username = 'Clue_Crew'
-#urlwithusername = beginnerUrl + username
-#column_names = ["Rank", "Clues", "XP"]
-#url = urlwithusername
-#stats = panda.read_csv(url, names=column_names)
-#print(stats)
-#print("Stats Fetched")
-#Create a list for rank and clue categories
-#Ranks = stats.Rank.to_list() 
-#Clues = stats.Clues.to_list()
-#print("Data converted to list format")
-#Obtain Clue Count for each Clue Type
-#
-#easyClueCount = Clues[54]
-#mediumClueCount = Clues[55]
-#hardClueCount = Clues[56]
-#eliteClueCount = Clues[57]
-#masterClueCount = Clues[58]
-#Obtain Ranking for each clue type
-#
-#easyRank = Ranks[54]
-#mediumRank = Ranks[55]
-#hardRank = Ranks[56]
-#eliteRank = Ranks[57]
-#masterRank = Ranks[58]
-#totalClues = easyClueCount + mediumClueCount + hardClueCount + eliteClueCount + masterClueCount #Count total clues
-#print("Easy Clues "+ str(easyClueCount)) #Print number of easy clues as a string (will only print a string)
-################
-###############
 
 @bot.event
 async def on_ready():
@@ -84,19 +56,52 @@ async def on_ready():
 #        response = easyClueCount
 #        await message.channel.send(response)        
 
+
+@bot.command(name='setrsn', help='Set your Runescape 3 Username to pull clue stats')
+async def setRsn(ctx, *args):
+    usernameDesired = ""
+    for arg in args:
+        usernameDesired = usernameDesired + "_" + arg
+    print(usernameDesired+" is the desired username!")
+    print(ctx.author.display_name)
+    
+
 @bot.command(name='clues', help='Responds with Clue Stats')
-async def clueCheck(ctx):
-    clueStatsLookup("Clue_Crew")
+async def clueCheck(ctx, *args):
+    usernameForLookup = ""
+    for arg in args:
+        usernameForLookup = usernameForLookup + "_" + arg
+    print(usernameForLookup)
+    clueStatsLookup(usernameForLookup)
     print("Stats looked up!")
-    response = ("Success!")
-    response2 = ("You have completed a total of "+ str(clueStatsLookup.totalClues) + " Clues!")
-    await ctx.send(response)
-    await ctx.send(response2)
     #embed response into a message block that looks professional
-    embed = discord.Embed(title="Clue Hunting Stats", url=clueStatsLookup.urlwithusername, description="This is an embed that will show how to build an embed and the different components", color=discord.Color.blue())
+    embed = discord.Embed(title="Clue stats for " + ctx.author.display_name, url=clueStatsLookup.urlwithusername, description="You are a clue master!", color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+    embed.set_footer(text = time_string)
+    clueCounter = [clueStatsLookup.easyClueCount,clueStatsLookup.mediumClueCount,clueStatsLookup.hardClueCount,clueStatsLookup.eliteClueCount,clueStatsLookup.masterClueCount]
+    pointTotal = 0
+    print(clueCounter)
+    for x in range(5):
+        pointTotal = pointTotal + math.pow(2, x) * ((math.floor(clueCounter[x]/500) * math.pow(2,5)) + (math.floor(clueCounter[x]/250) - math.floor(clueCounter[x]/500)) * math.pow(2,4) + (math.floor(clueCounter[x]/100) - math.floor(clueCounter[x]/500)) * math.pow(2,3) + (math.floor(clueCounter[x]/50) - math.floor(clueCounter[x]/100) - math.floor(clueCounter[x]/250) + math.floor(clueCounter[x]/500)) * math.pow(2,2) + (math.floor(clueCounter[x]/10) - math.floor(clueCounter[x]/50)) * math.pow(2,1) + (clueCounter[x]-math.floor(clueCounter[x]/10)) * math.pow(2,0))
+        print(pointTotal)
+    print(pointTotal)
+    pointTotal = int(pointTotal)
+    embed.add_field(name="Total Clue Points", value="Total Clue Points: "+ str(pointTotal))
+    embed.add_field(name="Total Clues Completed",value="Total Clues: " + str(clueStatsLookup.totalClues))
+    
+    
+    
+    
     await ctx.send(embed=embed)    
 
 bot.run(Token)
+
+
+
+
+
+
 
