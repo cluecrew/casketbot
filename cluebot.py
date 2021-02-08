@@ -7,6 +7,8 @@ import discord
 import pandas as panda
 from discord.ext import commands
 
+####WELCOME TO CASKETBOT####
+
 
 from dotenv import load_dotenv
 load_dotenv()
