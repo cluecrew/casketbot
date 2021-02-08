@@ -85,6 +85,7 @@ async def setRsn(ctx, *args):
     
 @bot.command(name='opencasket', help='Simulates opening a Hard Clue Casket')
 async def openCasket(ctx):
+    userId = int(ctx.author.id)
     reward = hardDrop()
     print (ctx.author.display_name+" has been rewarded with: "+reward)
     await ctx.send("You have been rewarded: "+reward)
