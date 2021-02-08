@@ -92,6 +92,8 @@ async def openCasket(ctx):
 
 @bot.command(name='clues', help='Responds with Clue Stats')
 async def clueCheck(ctx, *args):
+    userId = int(ctx.author.id)
+    print(str(userId))
     usernameForLookup = ""
     for arg in args:
         usernameForLookup = usernameForLookup + "_" + arg
