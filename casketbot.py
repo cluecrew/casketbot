@@ -26,11 +26,14 @@ def clueStatsLookup(name):
     print("Stats found for "+username)
     Ranks = stats.Rank.to_list() 
     Clues = stats.Clues.to_list()
+    Clues = [0 if i==-1 else i for i in Clues]
+    Ranks = [0 if i==-1 else i for i in Ranks]
     clueStatsLookup.easyClueCount = Clues[54]
     clueStatsLookup.mediumClueCount = Clues[55]
     clueStatsLookup.hardClueCount = Clues[56]
     clueStatsLookup.eliteClueCount = Clues[57]
     clueStatsLookup.masterClueCount = Clues[58]
+
     #Obtain Ranking for each clue type
     
     clueStatsLookup.easyRank = Ranks[54]
