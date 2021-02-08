@@ -36,7 +36,8 @@ def clueStatsLookup(name):
     clueStatsLookup.eliteRank = Ranks[57]
     clueStatsLookup.masterRank = Ranks[58]
     clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
-
+    
+    
 #client = discord.Client()
 bot = commands.Bot(command_prefix='=')
 
@@ -102,6 +103,6 @@ async def clueCheck(ctx, *args):
     embed.add_field(name="Medium Clues",value="Count: "+str(clueStatsLookup.mediumClueCount)+","+" Rank: "+str(clueStatsLookup.mediumRank),inline=False)
     embed.add_field(name="Easy Clues",value="Count: "+str(clueStatsLookup.easyClueCount)+","+" Rank: "+str(clueStatsLookup.easyRank),inline=False)
     
-    await ctx.send(embed=embed)    
+    await ctx.send(embed=embed)
 
 bot.run(Token)
