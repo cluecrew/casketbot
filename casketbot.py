@@ -46,7 +46,7 @@ def clueStatsLookup(name):
         clueStatsLookup.masterRank = Ranks[58]
         clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
     except:
-        print("URL not applicable")
+        print("URL not applicable for: "+username)
         clueStatsLookup.urlerror = 1
         pass
     
@@ -86,6 +86,7 @@ async def setRsn(ctx, *args):
 @bot.command(name='opencasket', help='Simulates opening a Hard Clue Casket')
 async def openCasket(ctx):
     reward = hardDrop()
+    print (ctx.author.display_name+" has been rewarded with: "+reward)
     await ctx.send("You have been rewarded: "+reward)
 
 
