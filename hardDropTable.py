@@ -83,5 +83,5 @@ def hardDrop():
         if 10 == rollMegaRare:
             reward = "A Starved Ancient Effigy"
         if 11 == rollMegaRare:
-            reward = "A drop from the 3rd Age Table"
+            reward = "A drop from the 3rd Age Table" 
     return reward

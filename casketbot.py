@@ -88,13 +88,24 @@ async def openCasket(ctx):
     userId = int(ctx.author.id)
     reward = hardDrop()
     print (ctx.author.display_name+" has been rewarded with: "+reward)
+    with open('dropData.txt','a') as f:
+        f.write(str(userId))
+        f.write(",")
+        f.write(str(ctx.author.display_name))
+        f.write(",")
+        f.write(str(reward))
+        f.write(",")
+        named_tuple = time.localtime() # get struct_time
+        time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+        f.write(time_string)
+        f.write("\n")
     await ctx.send("You have been rewarded: "+reward)
 
 
 @bot.command(name='clues', help='Responds with Clue Stats')
 async def clueCheck(ctx, *args):
-    userId = int(ctx.author.id)
-    print(str(userId))
+    clueCheck.userId = int(ctx.author.id)
+    print(str(clueCheck.userId))
     usernameForLookup = ""
     for arg in args:
         usernameForLookup = usernameForLookup + "_" + arg
@@ -109,6 +120,17 @@ async def clueCheck(ctx, *args):
         await ctx.send("Please type a valid username after the command. (=clues Clue Crew)")
     
 async def sendClueStatsEmbed(ctx):
+    with open('clueStats.txt','a') as f:
+        f.write(str(clueCheck.userId))
+        f.write(",")
+        f.write(str(ctx.author.display_name))
+        f.write(",")
+        f.write(str(clueStatsLookup.totalClues))
+        f.write(",")
+        named_tuple = time.localtime() # get struct_time
+        time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+        f.write(time_string)
+        f.write("\n")
     embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
