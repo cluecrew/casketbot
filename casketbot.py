@@ -100,11 +100,11 @@ async def clueCheck(ctx, *args):
     #print("Stats looked up!")
     #embed response into a message block that looks professional
     if clueStatsLookup.urlerror == 0:
-        await sendEmbed(ctx)
+        await sendClueStatsEmbed(ctx)
     else:
         await ctx.send("Please type a valid username after the command. (=clues Clue Crew)")
     
-async def sendEmbed(ctx):
+async def sendClueStatsEmbed(ctx):
     embed = discord.Embed(title="Clue stats for " + ctx.author.display_name, url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
