@@ -1,4 +1,4 @@
-# cluebot.py
+# casketbot.py
 import os
 import time
 import csv
