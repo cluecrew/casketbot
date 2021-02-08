@@ -5,45 +5,44 @@ def hardDrop():
     rollHard = random.randint(1,96)
     print("Rolled a "+str(rollHard)+"!")
     if  1 <= rollHard <= 15:
-        print("Any God Trimmed Armor")
+        reward = "A Piece from the God Trimmed Armor Table"
     elif  16 <= rollHard <= 25:
-        print("Any Trimmed Rune Armor")
+        reward = "A Piece from the Trimmed Rune Armor Table"
     elif  26 <= rollHard <= 50:
-        print("Any Heraldic Rune Armor")
+        reward = "A Piece from the Heraldic Rune Armor Table"
     elif  51 <= rollHard <= 54:
-        print("Any Trimmed Dragonhide")
+        reward = "A Piece from the Trimmed Dragonhide Table"
     elif  55 <= rollHard <= 57:
-        print("Any Enchanted Outfit Piece")
+        reward = "A Piece from the Enchanted Outfit Table"
     elif  58 <= rollHard <= 69:
-        print("Any Vestment Piece")
+        reward = "A Piece from the Vestment Table"
     elif  70 <= rollHard <= 81:
-        print("Any Blessed Dragonhide Piece")
+        reward = "A Piece from the Blessed Dragonhide Table"
     elif  82 <= rollHard <= 84:
-        print("Any Cavalier")
+        reward = "A Hat from the Cavalier Hat Table"
     elif rollHard == 85:
-        print("Pirate Hat")
+        reward = "A Pirate Hat"
     elif rollHard == 86:
-        print("Robinhood Hat")
+        reward = "A Robinhood Hat"
     elif rollHard == 87:
-        print("Amulet of Fury (t)")
+        reward = "An Amulet of Fury (t)"
     elif rollHard == 88:
-        print("Amulet of Glory (t)")
+        reward = "An Amulet of Glory (t)"
     elif rollHard == 89:
-        print("Top Hat")
+        reward = "A Top Hat"
     elif rollHard == 90:
-        print("Rune Cane")
+        reward = "A Rune Cane"
     elif rollHard == 91:
-        print("Animal Mask Table")
+        reward = "Any Mask from the Animal Mask Table"
     elif rollHard == 92:
-        print("Dragon Mask Table")
+        reward = "Any Mask from the Dragon Mask Table"
     elif rollHard == 93:
-        print("Sack of Effigies Table")
+        reward = "A Chance to pull from the Sack of Effigies Table"
     elif rollHard == 94:
-        print("Backstab Table")
+        reward = "A Chance to pull from the Backstab Table"
     elif rollHard == 95:
-        print("Dye Table")
+        reward = "A Chance to pull from the Dye Table"
     elif rollHard == 96:
-        print("Mega-Rare Table")
+        reward = "A reward from the Mega-Rare Table"
     print("Drop Complete! - Hard Drop Table")
-    
-hardDrop()
+    return reward
