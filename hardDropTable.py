@@ -3,7 +3,7 @@ import os
 import random
 def hardDrop():
     rollHard = random.randint(1,96)
-    print("Rolled a "+str(rollHard)+"!")
+    #print("Rolled a "+str(rollHard)+"!")
     if  1 <= rollHard <= 15:
         reward = "A Piece from the God Trimmed Armor Table"
     elif  16 <= rollHard <= 25:
@@ -84,5 +84,4 @@ def hardDrop():
             reward = "A Starved Ancient Effigy"
         if 11 == rollMegaRare:
             reward = "A drop from the 3rd Age Table"
-    print("Drop Complete! - Hard Drop Table")
     return reward
