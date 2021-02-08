@@ -6,6 +6,7 @@ import math
 import discord
 import pandas as panda
 from discord.ext import commands
+from hardDropTable import *
 
 ####WELCOME TO CASKETBOT####
 
@@ -73,6 +74,11 @@ async def setRsn(ctx, *args):
     embed.set_footer(text = time_string)
     await ctx.send(embed=embed)
     
+@bot.command(name='opencasket', help='Simulates opening a Hard Clue Casket')
+async def openCasket(ctx):
+    reward = hardDrop()
+    await ctx.send("You have been rewarded: "+reward)
+
 
 @bot.command(name='clues', help='Responds with Clue Stats')
 async def clueCheck(ctx, *args):
