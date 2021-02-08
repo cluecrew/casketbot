@@ -33,16 +33,56 @@ def hardDrop():
     elif rollHard == 90:
         reward = "A Rune Cane"
     elif rollHard == 91:
-        reward = "Any Mask from the Animal Mask Table"
+        rollAnimal = random.randint(1,3)
+        if rollAnimal == 1:
+            reward = "A Fox Mask"
+        if rollAnimal == 2:
+            reward = "A Unicorn Mask"
+        if rollAnimal == 3:
+            reward = "A Black Unicorn Mask"
     elif rollHard == 92:
-        reward = "Any Mask from the Dragon Mask Table"
+        rollDragon = random.randint(1,3)
+        if rollDragon == 1:
+            reward = "A Green Dragon Mask"
+        if rollDragon == 2:
+            reward = "A Blue Dragon Mask"
+        if rollDragon == 3:
+            reward = "A Red Dragon Mask"
     elif rollHard == 93:
-        reward = "A Chance to pull from the Sack of Effigies Table"
+        rollEffigy = random.randint(1,30)
+        if rollEffigy == 1:
+            reward = "A Sack of Effigies Cape"
+        else:
+            rollBarrel = random.randint(1,120)
+            if rollBarrel == 1:
+                reward = "Explosive Barrel Cape"
+            else:
+                reward = "25,000 GP"
     elif rollHard == 94:
-        reward = "A Chance to pull from the Backstab Table"
+        rollBackstab = random.randint(1,15)
+        if rollEffigy == 1:
+            reward = "A Backstab Cape"
+        else:
+            reward = "10,000 GP"
     elif rollHard == 95:
-        reward = "A Chance to pull from the Dye Table"
+        rollDye = random.randint(1,10)
+        if rollDye == 1:
+            reward = "A Shadow Dye"
+        else:
+            rollBarrows = random.randint(1,5)
+            if rollBarrows == 1:
+                reward = "A Barrows Dye"
+            else:
+                reward = "20,000 GP"
     elif rollHard == 96:
-        reward = "A reward from the Mega-Rare Table"
+        rollMegaRare = random.randint(1,11)
+        if 1 <= rollMegaRare <= 5:
+            reward = "A gilded set piece"
+        if 6 <= rollMegaRare <= 9:
+            reward = "A Potion Set"
+        if 10 == rollMegaRare:
+            reward = "A Starved Ancient Effigy"
+        if 11 == rollMegaRare:
+            reward = "A drop from the 3rd Age Table"
     print("Drop Complete! - Hard Drop Table")
     return reward
