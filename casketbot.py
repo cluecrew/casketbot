@@ -16,33 +16,38 @@ load_dotenv()
 Token = os.getenv('DISCORD_TOKEN') #pull discord token from environment file
 
 def clueStatsLookup(name):
-    beginnerUrl = "http://secure.runescape.com/m=hiscore/index_lite.ws?player="
-    username = str(name)
-    clueStatsLookup.urlwithusername = beginnerUrl + username
-    column_names = ["Rank", "Clues", "XP"]
-    #print(clueStatsLookup.urlwithusername+ " will be the URL for this request!")
-    url = clueStatsLookup.urlwithusername
-    stats = panda.read_csv(url, names=column_names)
-    print("Stats found for "+username)
-    Ranks = stats.Rank.to_list() 
-    Clues = stats.Clues.to_list()
-    Clues = [0 if i==-1 else i for i in Clues]
-    Ranks = [0 if i==-1 else i for i in Ranks]
-    clueStatsLookup.easyClueCount = Clues[54]
-    clueStatsLookup.mediumClueCount = Clues[55]
-    clueStatsLookup.hardClueCount = Clues[56]
-    clueStatsLookup.eliteClueCount = Clues[57]
-    clueStatsLookup.masterClueCount = Clues[58]
+    try:
+        urlerror = 0
+        beginnerUrl = "http://secure.runescape.com/m=hiscore/index_lite.ws?player="
+        username = str(name)
+        clueStatsLookup.urlwithusername = beginnerUrl + username
+        column_names = ["Rank", "Clues", "XP"]
+        #print(clueStatsLookup.urlwithusername+ " will be the URL for this request!")
+        url = clueStatsLookup.urlwithusername
+        stats = panda.read_csv(url, names=column_names)
+        
+        print("Stats found for "+username)
+        Ranks = stats.Rank.to_list() 
+        Clues = stats.Clues.to_list()
+        Clues = [0 if i==-1 else i for i in Clues]
+        Ranks = [0 if i==-1 else i for i in Ranks]
+        clueStatsLookup.easyClueCount = Clues[54]
+        clueStatsLookup.mediumClueCount = Clues[55]
+        clueStatsLookup.hardClueCount = Clues[56]
+        clueStatsLookup.eliteClueCount = Clues[57]
+        clueStatsLookup.masterClueCount = Clues[58]
 
-    #Obtain Ranking for each clue type
-    
-    clueStatsLookup.easyRank = Ranks[54]
-    clueStatsLookup.mediumRank = Ranks[55]
-    clueStatsLookup.hardRank = Ranks[56]
-    clueStatsLookup.eliteRank = Ranks[57]
-    clueStatsLookup.masterRank = Ranks[58]
-    clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
-    
+        #Obtain Ranking for each clue type
+        
+        clueStatsLookup.easyRank = Ranks[54]
+        clueStatsLookup.mediumRank = Ranks[55]
+        clueStatsLookup.hardRank = Ranks[56]
+        clueStatsLookup.eliteRank = Ranks[57]
+        clueStatsLookup.masterRank = Ranks[58]
+        clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
+    except:
+        print("URL not applicable")
+        pass
     
 #client = discord.Client()
 bot = commands.Bot(command_prefix='=')
