@@ -17,7 +17,7 @@ Token = os.getenv('DISCORD_TOKEN') #pull discord token from environment file
 
 def clueStatsLookup(name):
     try:
-        urlerror = 0
+        clueStatsLookup.urlerror = 0
         beginnerUrl = "http://secure.runescape.com/m=hiscore/index_lite.ws?player="
         username = str(name)
         clueStatsLookup.urlwithusername = beginnerUrl + username
@@ -47,6 +47,7 @@ def clueStatsLookup(name):
         clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
     except:
         print("URL not applicable")
+        clueStatsLookup.urlerror = 1
         pass
     
 #client = discord.Client()
@@ -97,6 +98,12 @@ async def clueCheck(ctx, *args):
     clueStatsLookup(usernameForLookup)
     #print("Stats looked up!")
     #embed response into a message block that looks professional
+    if clueStatsLookup.urlerror == 0:
+        await sendEmbed(ctx)
+    else:
+        await ctx.send("Please type a valid username after the command. (=clues Clue Crew)")
+    
+async def sendEmbed(ctx):
     embed = discord.Embed(title="Clue stats for " + ctx.author.display_name, url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
