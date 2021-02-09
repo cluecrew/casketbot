@@ -76,7 +76,7 @@ async def setRsn(ctx, *args):
         usernameDesired = usernameDesired + "_" + arg
     usernameWithSpaces = usernameDesired.replace("_"," ")
     #print(usernameDesired+" is the desired username!")
-    #print(ctx.author.display_name)
+    #print(ctx.author.display_name)  
     embed = discord.Embed(title="Set Username for " + usernameWithSpaces, url=clueStatsLookup.urlwithusername, description="You have assigned" + usernameDesired + " to your profile!" , color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
