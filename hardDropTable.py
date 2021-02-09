@@ -83,7 +83,7 @@ def hardDrop():
                 dropId = 30069
     elif rollHard == 94:
         rollBackstab = random.randint(1,15)
-        if rollEffigy == 1:
+        if rollBackstab == 1:
             reward = "A Backstab Cape"
             dropId = 33520
         else:
@@ -116,4 +116,4 @@ def hardDrop():
         if 11 == rollMegaRare:
             reward = "A drop from the 3rd Age Table" 
             dropId = 10348
-    return reward
+    return reward, dropId;

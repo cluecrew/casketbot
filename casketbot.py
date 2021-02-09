@@ -124,7 +124,7 @@ async def setRsn(ctx, *args):
 @bot.command(name='opencasket', help='Simulates opening a Hard Clue Casket')
 async def openCasket(ctx):
     userId = int(ctx.author.id)
-    reward = hardDrop()
+    reward, dropId = hardDrop()
     print (ctx.author.display_name+" has been rewarded with: "+reward)
     with open('dropData.txt','a') as f:
         f.write(str(userId))
@@ -137,7 +137,14 @@ async def openCasket(ctx):
         time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
         f.write(time_string)
         f.write("\n")
-    await ctx.send("You have been rewarded: "+reward)
+    embed = discord.Embed(title="Hard Clue Casket Opened! ", description="You have been rewarded: " + reward, color=discord.Color.green())
+    embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
+    embed.set_thumbnail(url="https://secure.runescape.com/m=itemdb_rs/obj_sprite.gif?id="+str(dropId))
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+    embed.set_footer(text = time_string)
+    await ctx.send(embed=embed)
+    #await ctx.send("You have been rewarded: "+reward)
 
 
 @bot.command(name='clues', help='Responds with Clue Stats')
