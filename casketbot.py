@@ -49,6 +49,41 @@ def clueStatsLookup(name):
         print("URL not applicable for: "+username)
         clueStatsLookup.urlerror = 1
         pass
+async def sendClueStatsEmbed(ctx):
+    with open('clueStats.txt','a') as f:
+        f.write(str(clueCheck.userId))
+        f.write(",")
+        f.write(str(ctx.author.display_name))
+        f.write(",")
+        f.write(str(clueStatsLookup.totalClues))
+        f.write(",")
+        named_tuple = time.localtime() # get struct_time
+        time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+        f.write(time_string)
+        f.write("\n")
+    embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
+    embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
+    embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+    embed.set_footer(text = time_string)
+    clueCounter = [clueStatsLookup.easyClueCount,clueStatsLookup.mediumClueCount,clueStatsLookup.hardClueCount,clueStatsLookup.eliteClueCount,clueStatsLookup.masterClueCount]
+    pointTotal = 0
+    #print(clueCounter)
+    for x in range(5):
+        pointTotal = pointTotal + math.pow(2, x) * ((math.floor(clueCounter[x]/500) * math.pow(2,5)) + (math.floor(clueCounter[x]/250) - math.floor(clueCounter[x]/500)) * math.pow(2,4) + (math.floor(clueCounter[x]/100) - math.floor(clueCounter[x]/500)) * math.pow(2,3) + (math.floor(clueCounter[x]/50) - math.floor(clueCounter[x]/100) - math.floor(clueCounter[x]/250) + math.floor(clueCounter[x]/500)) * math.pow(2,2) + (math.floor(clueCounter[x]/10) - math.floor(clueCounter[x]/50)) * math.pow(2,1) + (clueCounter[x]-math.floor(clueCounter[x]/10)) * math.pow(2,0))
+        #print(pointTotal)
+    #print(pointTotal)
+    pointTotal = int(pointTotal)
+    embed.add_field(name="Total Clue Points", value="Total Clue Points: "+ str(pointTotal))
+    embed.add_field(name="Total Clues Completed",value="Total Clues: " + str(clueStatsLookup.totalClues))
+    embed.add_field(name="Master Clues",value="Count: "+str(clueStatsLookup.masterClueCount)+","+" Rank: "+str(clueStatsLookup.masterRank),inline=False)
+    embed.add_field(name="Elite Clues",value="Count: "+str(clueStatsLookup.eliteClueCount)+","+" Rank: "+str(clueStatsLookup.eliteRank),inline=False)
+    embed.add_field(name="Hard Clues",value="Count: "+str(clueStatsLookup.hardClueCount)+","+" Rank: "+str(clueStatsLookup.hardRank),inline=False)
+    embed.add_field(name="Medium Clues",value="Count: "+str(clueStatsLookup.mediumClueCount)+","+" Rank: "+str(clueStatsLookup.mediumRank),inline=False)
+    embed.add_field(name="Easy Clues",value="Count: "+str(clueStatsLookup.easyClueCount)+","+" Rank: "+str(clueStatsLookup.easyRank),inline=False)
+    await ctx.send(embed=embed)        
+
     
 #client = discord.Client()
 bot = commands.Bot(command_prefix='=')
@@ -121,40 +156,4 @@ async def clueCheck(ctx, *args):
     else:
         await ctx.send("Please type a valid username after the command. (=clues Clue Crew)")
     
-async def sendClueStatsEmbed(ctx):
-    with open('clueStats.txt','a') as f:
-        f.write(str(clueCheck.userId))
-        f.write(",")
-        f.write(str(ctx.author.display_name))
-        f.write(",")
-        f.write(str(clueStatsLookup.totalClues))
-        f.write(",")
-        named_tuple = time.localtime() # get struct_time
-        time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
-        f.write(time_string)
-        f.write("\n")
-    embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
-    embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
-    embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
-    named_tuple = time.localtime() # get struct_time
-    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
-    embed.set_footer(text = time_string)
-    clueCounter = [clueStatsLookup.easyClueCount,clueStatsLookup.mediumClueCount,clueStatsLookup.hardClueCount,clueStatsLookup.eliteClueCount,clueStatsLookup.masterClueCount]
-    pointTotal = 0
-    #print(clueCounter)
-    for x in range(5):
-        pointTotal = pointTotal + math.pow(2, x) * ((math.floor(clueCounter[x]/500) * math.pow(2,5)) + (math.floor(clueCounter[x]/250) - math.floor(clueCounter[x]/500)) * math.pow(2,4) + (math.floor(clueCounter[x]/100) - math.floor(clueCounter[x]/500)) * math.pow(2,3) + (math.floor(clueCounter[x]/50) - math.floor(clueCounter[x]/100) - math.floor(clueCounter[x]/250) + math.floor(clueCounter[x]/500)) * math.pow(2,2) + (math.floor(clueCounter[x]/10) - math.floor(clueCounter[x]/50)) * math.pow(2,1) + (clueCounter[x]-math.floor(clueCounter[x]/10)) * math.pow(2,0))
-        #print(pointTotal)
-    #print(pointTotal)
-    pointTotal = int(pointTotal)
-    embed.add_field(name="Total Clue Points", value="Total Clue Points: "+ str(pointTotal))
-    embed.add_field(name="Total Clues Completed",value="Total Clues: " + str(clueStatsLookup.totalClues))
-    embed.add_field(name="Master Clues",value="Count: "+str(clueStatsLookup.masterClueCount)+","+" Rank: "+str(clueStatsLookup.masterRank),inline=False)
-    embed.add_field(name="Elite Clues",value="Count: "+str(clueStatsLookup.eliteClueCount)+","+" Rank: "+str(clueStatsLookup.eliteRank),inline=False)
-    embed.add_field(name="Hard Clues",value="Count: "+str(clueStatsLookup.hardClueCount)+","+" Rank: "+str(clueStatsLookup.hardRank),inline=False)
-    embed.add_field(name="Medium Clues",value="Count: "+str(clueStatsLookup.mediumClueCount)+","+" Rank: "+str(clueStatsLookup.mediumRank),inline=False)
-    embed.add_field(name="Easy Clues",value="Count: "+str(clueStatsLookup.easyClueCount)+","+" Rank: "+str(clueStatsLookup.easyRank),inline=False)
-    
-    await ctx.send(embed=embed)
-
 bot.run(Token)
