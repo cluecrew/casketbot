@@ -19,14 +19,13 @@ def clueStatsLookup(name):
     try:
         clueStatsLookup.urlerror = 0
         beginnerUrl = "http://secure.runescape.com/m=hiscore/index_lite.ws?player="
-        username = str(name)
-        clueStatsLookup.urlwithusername = beginnerUrl + username
+        clueStatsLookup.username = str(name)
+        clueStatsLookup.urlwithusername = beginnerUrl + clueStatsLookup.username
         column_names = ["Rank", "Clues", "XP"]
         #print(clueStatsLookup.urlwithusername+ " will be the URL for this request!")
         url = clueStatsLookup.urlwithusername
+        print("Stats Found for" +clueStatsLookup.username)
         stats = panda.read_csv(url, names=column_names)
-        
-        print("Stats found for "+username)
         Ranks = stats.Rank.to_list() 
         Clues = stats.Clues.to_list()
         Clues = [0 if i==-1 else i for i in Clues]
@@ -46,7 +45,7 @@ def clueStatsLookup(name):
         clueStatsLookup.masterRank = Ranks[58]
         clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
     except:
-        print("URL not applicable for: "+username)
+        print("URL not applicable for: "+clueStatsLookup.username)
         clueStatsLookup.urlerror = 1
         pass
 async def sendClueStatsEmbed(ctx):
@@ -55,13 +54,15 @@ async def sendClueStatsEmbed(ctx):
         f.write(",")
         f.write(str(ctx.author.display_name))
         f.write(",")
+        f.write(str(clueStatsLookup.username))
+        f.write(",")
         f.write(str(clueStatsLookup.totalClues))
         f.write(",")
         named_tuple = time.localtime() # get struct_time
         time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
         f.write(time_string)
         f.write("\n")
-    embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, description="Successful Search!", color=discord.Color.blue())
+    embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
     named_tuple = time.localtime() # get struct_time
@@ -142,7 +143,7 @@ async def openCasket(ctx):
 @bot.command(name='clues', help='Responds with Clue Stats')
 async def clueCheck(ctx, *args):
     clueCheck.userId = int(ctx.author.id)
-    print(str(clueCheck.userId))
+    #print(str(clueCheck.userId))
     usernameForLookup = ""
     for arg in args:
         usernameForLookup = usernameForLookup + "_" + arg
