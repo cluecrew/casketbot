@@ -116,4 +116,4 @@ def hardDrop():
         if 11 == rollMegaRare:
             reward = "A drop from the 3rd Age Table" 
             dropId = 10348
-    return reward, dropId
+    return reward
