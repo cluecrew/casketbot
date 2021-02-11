@@ -17,21 +17,27 @@ Token = os.getenv('DISCORD_TOKEN') #pull discord token from environment file
 
 def clueStatsLookup(name):
     try:
-        clueStatsLookup.urlerror = 0
-        beginnerUrl = "http://secure.runescape.com/m=hiscore/index_lite.ws?player="
-        clueStatsLookup.username = str(name)
-        clueStatsLookup.urlwithusername = beginnerUrl + clueStatsLookup.username
-        column_names = ["Rank", "Clues", "XP"]
+        clueStatsLookup.urlerror = 0 #at beginning of loop there is no known error with this username
+        beginnerUrl = "http://secure.runescape.com/m=hiscore/index_lite.ws?player=" #Runescape API to pull user data
+        clueStatsLookup.username = str(name) #convert username to string
+        clueStatsLookup.urlwithusername = beginnerUrl + clueStatsLookup.username #add username to end of URL
+        column_names = ["Rank", "Clues", "XP"] #create 3 distinctly named columns for user data
         #print(clueStatsLookup.urlwithusername+ " will be the URL for this request!")
         url = clueStatsLookup.urlwithusername
+        
+        #Log information to console if successful
         named_tuple = time.localtime() # get struct_time
         time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
         print(time_string+":"+" Stats Found for" +clueStatsLookup.username)
+
         stats = panda.read_csv(url, names=column_names)
-        Ranks = stats.Rank.to_list() 
-        Clues = stats.Clues.to_list()
-        Clues = [0 if i==-1 else i for i in Clues]
-        Ranks = [0 if i==-1 else i for i in Ranks]
+        Ranks = stats.Rank.to_list()#create rank listing 
+        Clues = stats.Clues.to_list()#create clue count listing
+        Clues = [0 if i==-1 else i for i in Clues] #replace -1's with zeros
+        Ranks = [0 if i==-1 else i for i in Ranks] #replace -1's with zeros
+        
+        #Obtain Clue Count for each clue type
+        
         clueStatsLookup.easyClueCount = Clues[54]
         clueStatsLookup.mediumClueCount = Clues[55]
         clueStatsLookup.hardClueCount = Clues[56]
@@ -68,7 +74,7 @@ async def sendClueStatsEmbed(ctx):
         f.write("\n")
     embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
-    embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
+    embed.set_thumbnail(url="https://i.ibb.co/pbVPb24/casketbot-profile-pic.png")
     named_tuple = time.localtime() # get struct_time
     time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
     embed.set_footer(text = time_string)
