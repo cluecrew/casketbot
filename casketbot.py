@@ -24,7 +24,9 @@ def clueStatsLookup(name):
         column_names = ["Rank", "Clues", "XP"]
         #print(clueStatsLookup.urlwithusername+ " will be the URL for this request!")
         url = clueStatsLookup.urlwithusername
-        print("Stats Found for" +clueStatsLookup.username)
+        named_tuple = time.localtime() # get struct_time
+        time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
+        print(time_string+":"+" Stats Found for" +clueStatsLookup.username)
         stats = panda.read_csv(url, names=column_names)
         Ranks = stats.Rank.to_list() 
         Clues = stats.Clues.to_list()
@@ -45,7 +47,9 @@ def clueStatsLookup(name):
         clueStatsLookup.masterRank = Ranks[58]
         clueStatsLookup.totalClues = clueStatsLookup.easyClueCount + clueStatsLookup.mediumClueCount + clueStatsLookup.hardClueCount + clueStatsLookup.eliteClueCount + clueStatsLookup.masterClueCount
     except:
-        print("URL not applicable for: "+clueStatsLookup.username)
+        named_tuple = time.localtime() # get struct_time
+        time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
+        print(time_string+":"+" URL not applicable for: "+clueStatsLookup.username)
         clueStatsLookup.urlerror = 1
         pass
 async def sendClueStatsEmbed(ctx):
@@ -59,14 +63,14 @@ async def sendClueStatsEmbed(ctx):
         f.write(str(clueStatsLookup.totalClues))
         f.write(",")
         named_tuple = time.localtime() # get struct_time
-        time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+        time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
         f.write(time_string)
         f.write("\n")
     embed = discord.Embed(title="Clue stats for" + str(clueCheck.usernameWithSpaces), url=clueStatsLookup.urlwithusername, color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/jy4nvMV/thumbnail10.png")
     named_tuple = time.localtime() # get struct_time
-    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+    time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
     embed.set_footer(text = time_string)
     clueCounter = [clueStatsLookup.easyClueCount,clueStatsLookup.mediumClueCount,clueStatsLookup.hardClueCount,clueStatsLookup.eliteClueCount,clueStatsLookup.masterClueCount]
     pointTotal = 0
@@ -125,7 +129,6 @@ async def on_ready():
 async def openCasket(ctx):
     userId = int(ctx.author.id)
     reward, dropId = hardDrop()
-    print (ctx.author.display_name+" has been rewarded with: "+reward)
     with open('dropData.txt','a') as f:
         f.write(str(userId))
         f.write(",")
@@ -134,15 +137,16 @@ async def openCasket(ctx):
         f.write(str(reward))
         f.write(",")
         named_tuple = time.localtime() # get struct_time
-        time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+        time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
         f.write(time_string)
         f.write("\n")
     embed = discord.Embed(title="Hard Clue Casket Opened! ", description="You have been rewarded: " + reward, color=discord.Color.green())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://secure.runescape.com/m=itemdb_rs/obj_sprite.gif?id="+str(dropId))
     named_tuple = time.localtime() # get struct_time
-    time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+    time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
     embed.set_footer(text = time_string)
+    print (time_string + ":"+ctx.author.display_name+" has been rewarded with: "+reward)
     await ctx.send(embed=embed)
     #await ctx.send("You have been rewarded: "+reward)
 
