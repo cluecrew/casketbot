@@ -4,6 +4,8 @@ import time
 import csv
 import math
 import discord
+import requests
+import operator
 import pandas as panda
 from discord.ext import commands
 from hardDropTable import *
@@ -173,5 +175,114 @@ async def clueCheck(ctx, *args):
         await sendClueStatsEmbed(ctx)
     else:
         await ctx.send("Please type a valid username after the command. (=clues Clue Crew)")
+
+
+###VIS WAX Command###
+def remafterrune(text):
+    where_rune = text.find('Rune')
+    if where_rune == -1:
+        return text
+    return text[:where_rune + 4]
+
+
+def getID(rune):
+    runeID = 0
+    if operator.contains(rune,"Fire"):
+        runeID = 554
+        return runeID
+    if operator.contains(rune,"Water"):
+        runeID = 555
+        return runeID
+    if operator.contains(rune,"Air"):
+        runeID = 556
+        return runeID
+    if operator.contains(rune,"Earth"):
+        runeID = 557
+        return runeID
+    if operator.contains(rune,"Mind"):
+        runeID = 558
+        return runeID
+    if operator.contains(rune,"Body"):
+        runeID = 559
+        return runeID
+    if operator.contains(rune,"Death"):
+        runeID = 560
+        return runeID
+    if operator.contains(rune,"Nature"):
+        runeID = 561
+        return runeID
+    if operator.contains(rune,"Chaos"):
+        runeID = 562
+        return runeID
+    if operator.contains(rune,"Law"):
+        runeID = 563
+        return runeID
+    if operator.contains(rune,"Cosmic"):
+        runeID = 564
+        return runeID
+    if operator.contains(rune,"Blood"):
+        runeID = 565
+        return runeID
+    if operator.contains(rune,"Soul"):
+        runeID = 566
+        return runeID
+    if operator.contains(rune,"Steam"):
+        runeID = 4694
+        returnruneID
+    if operator.contains(rune,"Mist"):
+        runeID = 4695
+        return runeID
+    if operator.contains(rune,"Dust"):
+        runeID = 4696
+        return runeID
+    if operator.contains(rune,"Smoke"):
+        runeID = 4697
+        return runeID
+    if operator.contains(rune,"Mud"):
+        runeID = 4698
+        return runeID
+    if operator.contains(rune,"Lava"):
+        runeID = 4699
+        return runeID
+    else:
+        print("Rune ID not found")
+    return runeID
+
+
+@bot.command(name='vis',help='Responds with Vis Wax Combos for Today')
+async def visWax(ctx):
+    url = 'https://warbandtracker.com/goldberg/'
+    html = requests.get(url).content
+    df_list = panda.read_html(html)
+    df = df_list[0]
+    print(df)
+    rune1 = df[0]
+    rune1 = str(rune1[1])
+    rune2 = df[0]
+    rune2 = str(rune2[3])
+    rune1 = (remafterrune(rune1))
+    rune2 = (remafterrune(rune2))
+    rune1ID = str(getID(rune1))
+    rune2ID = str(getID(rune2))
+    embed = discord.Embed(title="Vis Wax Combinations", url="https://warbandtracker.com/goldberg/", color=discord.Color.blue())
+    embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
+    embed.set_thumbnail(url="https://i.ibb.co/pbVPb24/casketbot-profile-pic.png")
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
+    embed.set_footer(text = time_string)
+    embed.add_field(name="First Rune", value=rune1)
+    embed.add_field(name="Second Rune",value=rune2)
+    await ctx.send(embed=embed) 
+
+
+
+
+
+
+
+
+
+
+
     
 bot.run(Token)
