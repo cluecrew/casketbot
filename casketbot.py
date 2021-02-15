@@ -260,8 +260,14 @@ async def visWax(ctx):
     rune1 = str(rune1[1])
     rune2 = df[0]
     rune2 = str(rune2[3])
+    rune3 = df[1]
+    rune3 = str(rune3[3])
+    rune4 = df[2]
+    rune4 = str(rune4[3])
     rune1 = (remafterrune(rune1))
     rune2 = (remafterrune(rune2))
+    rune3 = (remafterrune(rune3))
+    rune4 = (remafterrune(rune4))
     rune1ID = str(getID(rune1))
     rune2ID = str(getID(rune2))
     embed = discord.Embed(title="Vis Wax Combinations", url="https://warbandtracker.com/goldberg/", color=discord.Color.blue())
@@ -271,7 +277,7 @@ async def visWax(ctx):
     time_string = time.strftime("%m/%d/%Y - %H:%M:%S", named_tuple)
     embed.set_footer(text = time_string)
     embed.add_field(name="First Rune", value=rune1)
-    embed.add_field(name="Second Rune",value=rune2)
+    embed.add_field(name="Second Rune",value=rune2 + " or "+rune3+" or "+rune4)
     await ctx.send(embed=embed) 
 
 
