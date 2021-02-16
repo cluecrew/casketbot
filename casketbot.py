@@ -255,7 +255,7 @@ async def visWax(ctx):
     html = requests.get(url).content
     df_list = panda.read_html(html)
     df = df_list[0]
-    print(df)
+    #print(df)
     rune1 = df[0]
     rune1 = str(rune1[1])
     rune2 = df[0]
@@ -280,6 +280,7 @@ async def visWax(ctx):
     embed.set_footer(text = time_string)
     embed.add_field(name="First Rune", value=rune1)
     embed.add_field(name="Second Rune",value=rune2 + " or "+rune3+" or "+rune4)
+    print(ctx.author.display_name+" requested today's Vis Wax Combo ("+rune1+") and (" +rune2+" or "+rune3+" or "+rune4+")")
     await ctx.send(embed=embed) 
 
 
