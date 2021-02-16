@@ -270,6 +270,8 @@ async def visWax(ctx):
     rune4 = (remafterrune(rune4))
     rune1ID = str(getID(rune1))
     rune2ID = str(getID(rune2))
+    rune3ID = str(getID(rune3))
+    rune4ID = str(getID(rune4))
     embed = discord.Embed(title="Vis Wax Combinations", url="https://warbandtracker.com/goldberg/", color=discord.Color.blue())
     embed.set_author(name=ctx.author.display_name,icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url="https://i.ibb.co/pbVPb24/casketbot-profile-pic.png")
