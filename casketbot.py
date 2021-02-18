@@ -228,7 +228,7 @@ def getID(rune):
         return runeID
     if operator.contains(rune,"Steam"):
         runeID = 4694
-        returnruneID
+        return runeID
     if operator.contains(rune,"Mist"):
         runeID = 4695
         return runeID
