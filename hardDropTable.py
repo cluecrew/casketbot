@@ -14,7 +14,7 @@ def hardDrop():
         reward = "A Piece from the Heraldic Rune Armor Table"
         dropId = 19179
     elif  51 <= rollHard <= 54:
-        reward = "A Piece from the Trimmed Dragonhide Table"
+        reward = "A Piece from the Trimmed Dragonhide Armor Table"
         dropId = 12943
     elif  55 <= rollHard <= 57:
         reward = "A Piece from the Enchanted Outfit Table"
@@ -23,7 +23,7 @@ def hardDrop():
         reward = "A Piece from the Vestment Table"
         dropId = 10470
     elif  70 <= rollHard <= 81:
-        reward = "A Piece from the Blessed Dragonhide Table"
+        reward = "A Piece from the Blessed Dragonhid Armor Table"
         dropId = 10370
     elif  82 <= rollHard <= 84:
         reward = "A Hat from the Cavalier Hat Table"

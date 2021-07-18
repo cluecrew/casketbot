@@ -163,6 +163,14 @@ async def openCasket(ctx):
 async def clueCheck(ctx, *args):
     clueCheck.userId = int(ctx.author.id)
     #print(str(clueCheck.userId))
+    #if username is in file/search for username in file
+    
+    
+    
+    
+    
+    
+    #if username is not in file
     usernameForLookup = ""
     for arg in args:
         usernameForLookup = usernameForLookup + "_" + arg
