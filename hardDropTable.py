@@ -79,7 +79,7 @@ def hardDrop():
                 reward = "Explosive Barrel Cape"
                 dropId = 33516
             else:
-                reward = "25,000 GP"
+                reward = "25,000 GP (1/120 chance on an Explosive Barrel Cape)"
                 dropId = 30069
     elif rollHard == 94:
         rollBackstab = random.randint(1,15)
@@ -87,20 +87,20 @@ def hardDrop():
             reward = "A Backstab Cape"
             dropId = 33520
         else:
-            reward = "10,000 GP"
+            reward = "10,000 GP (Miss on a Backstab Cape)"
             dropId = 30069
     elif rollHard == 95:
         rollDye = random.randint(1,10)
         if rollDye == 1:
-            reward = "A Shadow Dye"
+            reward = "Congratulations! A Shadow Dye!"
             dropId = 33296
         else:
             rollBarrows = random.randint(1,5)
             if rollBarrows == 1:
-                reward = "A Barrows Dye"
+                reward = "Congratulations! A Barrows Dye!"
                 dropId = 33294
             else:
-                reward = "20,000 GP"
+                reward = "20,000 GP (Miss on a Dye)"
                 dropId = 30069
     elif rollHard == 96:
         rollMegaRare = random.randint(1,11)
@@ -114,6 +114,6 @@ def hardDrop():
             reward = "A Starved Ancient Effigy"
             dropId = 18778
         if 11 == rollMegaRare:
-            reward = "A drop from the 3rd Age Table" 
+            reward = "Congratulations! A drop from the 3rd Age Table!" 
             dropId = 10348
     return reward, dropId;
