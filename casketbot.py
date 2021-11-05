@@ -182,7 +182,7 @@ async def clueCheck(ctx, *args):
     if clueStatsLookup.urlerror == 0:
         await sendClueStatsEmbed(ctx)
     else:
-        await ctx.send("Please type a valid username after the command. (=clues Clue Crew)")
+        await ctx.send("Please type a valid username after the command. (=clues <username>)")
 
 
 ###VIS WAX Command###
@@ -293,9 +293,11 @@ async def visWax(ctx):
 
 
 
-
-
-
+#Error Handler for when commands belong to other bots
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return 
 
 
 
