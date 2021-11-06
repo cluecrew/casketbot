@@ -271,3 +271,4 @@
 363297634175418368,ShadowSleep,A Piece from the Trimmed Rune Armor Table,11/04/2021 - 20:45:38
 363297634175418368,ShadowSleep,A Piece from the God Trimmed Armor Table,11/04/2021 - 20:45:46
 363297634175418368,ShadowSleep,An Amulet of Fury (t),11/04/2021 - 20:45:46
+322928746333995009,Swanson,A Piece from the Trimmed Rune Armor Table,11/05/2021 - 12:51:52
